@@ -1,0 +1,347 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #f0f4f8;
+    min-height: 100vh;
+    padding: 0 0 40px;
+}
+
+/* ── HEADER ── */
+.header {
+    background: #1a3557;
+    color: white;
+    padding: 28px 24px 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: 40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.ambulans-icon {
+    width: 38px; height: 38px;
+    background: #e84646;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.header-subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 2px;
+    padding-left: 50px;
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+    background: white;
+    margin: 0 16px;
+    border-radius: 14px;
+    padding: 14px 20px;
+    display: flex;
+    gap: 0;
+    margin-top: -16px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.stat-item {
+    flex: 1;
+    text-align: center;
+}
+
+.stat-item + .stat-item {
+    border-left: 1px solid #f0f0f0;
+}
+
+.stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a3557;
+    line-height: 1.1;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: #8a9ab0;
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+/* ── SECTION TITLE ── */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 20px 12px;
+}
+
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a3557;
+    letter-spacing: -0.2px;
+}
+
+.badge-count {
+    background: #e84646;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+}
+
+/* ── CARDS ── */
+.jadwal-list {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 4px solid #e0e0e0;
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:active { transform: scale(0.99); }
+
+.card.darurat { border-left-color: #e84646; }
+.card.menunggu { border-left-color: #f5a623; }
+.card.selesai  { border-left-color: #2ecc71; }
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.card-jenis {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.jenis-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.card.darurat  .jenis-dot { background: #e84646; }
+.card.menunggu .jenis-dot { background: #f5a623; }
+.card.selesai  .jenis-dot { background: #2ecc71; }
+
+.jenis-text {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card.darurat  .jenis-text { color: #e84646; }
+.card.menunggu .jenis-text { color: #d4870a; }
+.card.selesai  .jenis-text { color: #27ae60; }
+
+.card-jam {
+    font-size: 13px;
+    font-weight: 600;
+    color: #8a9ab0;
+    background: #f5f7fa;
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+.card-nama {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a3557;
+    margin-bottom: 10px;
+}
+
+.card-rute {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.rute-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #555f70;
+    line-height: 1.4;
+}
+
+.rute-icon {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.rute-icon.from { background: #e8f0fe; }
+.rute-icon.to   { background: #fce8e8; }
+
+.rute-connector {
+    width: 22px;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.rute-line {
+    width: 2px;
+    height: 14px;
+    background: #e0e6f0;
+    border-radius: 2px;
+    margin: -2px 0;
+}
+
+/* ── EMPTY STATE ── */
+.empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: #8a9ab0;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.empty-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 6px;
+}
+
+.empty-sub {
+    font-size: 13px;
+    color: #8a9ab0;
+}
+
+/* ── LOADING ── */
+.loading {
+    text-align: center;
+    padding: 48px 24px;
+}
+
+.spinner {
+    width: 36px; height: 36px;
+    border: 3px solid #e0e6f0;
+    border-top-color: #1a3557;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+    font-size: 13px;
+    color: #8a9ab0;
+}
+
+/* ── TOMBOL PESAN ── */
+.btn-wrapper {
+    padding: 20px 16px 0;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #e84646;
+    color: white;
+    padding: 18px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 16px rgba(232, 70, 70, 0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(232, 70, 70, 0.3);
+}
+
+.btn-icon {
+    font-size: 20px;
+}
+
+/* ── DATE CHIP ── */
+.date-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 5px 12px 5px 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+    margin-top: 10px;
+}
+
+/* ── CARD BADGE DARURAT ── */
+.darurat-badge {
+    position: absolute;
+    top: 0; right: 0;
+    background: #e84646;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 0 16px 0 10px;
+    letter-spacing: 0.5px;
+}
