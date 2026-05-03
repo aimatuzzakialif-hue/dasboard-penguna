@@ -1,3 +1,7 @@
+/* =========================================================
+   JADWAL AMBULANS — style.css
+   ========================================================= */
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -11,11 +15,10 @@ body {
 .header {
     background: #1a3557;
     color: white;
-    padding: 28px 24px 32px;
+    padding: 28px 24px 24px;
     position: relative;
     overflow: hidden;
 }
-
 .header::before {
     content: '';
     position: absolute;
@@ -24,7 +27,6 @@ body {
     border-radius: 50%;
     background: rgba(255,255,255,0.05);
 }
-
 .header::after {
     content: '';
     position: absolute;
@@ -33,89 +35,169 @@ body {
     border-radius: 50%;
     background: rgba(255,255,255,0.04);
 }
-
 .header-top {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+}
+.ambulans-icon {
+    width: 42px; height: 42px;
+    background: #e84646;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(232,70,70,0.4);
+}
+.header h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; }
+.header-subtitle { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+
+/* ── DATE CHIP ── */
+.date-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 5px 12px 5px 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+    margin-top: 6px;
 }
 
-.ambulans-icon {
-    width: 38px; height: 38px;
-    background: #e84646;
-    border-radius: 10px;
+/* ── KALENDER ── */
+.kalender-wrapper {
+    background: #1a3557;
+    padding: 0 12px 10px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    box-shadow: 0 4px 20px rgba(26,53,87,0.25);
+}
+
+.kal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 2px 7px;
+}
+
+.kal-nav-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: white;
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
+    transition: background 0.15s;
+    font-family: inherit;
+}
+.kal-nav-btn:hover { background: rgba(255,255,255,0.2); }
+
+.kal-label-bulan {
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.2px;
+    text-transform: capitalize;
+}
+
+/* Grid nama hari */
+.kal-header-hari {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 2px;
+}
+.kal-nama-hari {
+    text-align: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+    padding: 1px 0;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+/* Grid tanggal */
+.kal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.kal-sel {
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s;
+    background: transparent;
+}
+.kal-sel:hover { background: rgba(255,255,255,0.1); }
+.kal-kosong    { cursor: default; pointer-events: none; }
+
+.kal-angka {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.72);
+    line-height: 1;
+}
+
+/* Hari ini */
+.kal-today .kal-angka {
+    background: rgba(255,255,255,0.18);
+    color: white;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+}
+
+/* Tanggal dipilih */
+.kal-selected {
+    background: #e84646 !important;
+    border-radius: 7px;
+}
+.kal-selected .kal-angka {
+    color: white !important;
+    font-weight: 700;
+    background: none !important;
+    width: auto; height: auto;
+    border-radius: 0;
+}
+.kal-selected .kal-dot { background: rgba(255,255,255,0.8) !important; }
+
+/* Titik indikator ada data */
+.kal-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #f5a623;
+    margin-top: 1px;
     flex-shrink: 0;
 }
 
-.header h1 {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-}
 
-.header-subtitle {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    margin-top: 2px;
-    padding-left: 50px;
-}
-
-/* ── STATS BAR ── */
-.stats-bar {
-    background: white;
-    margin: 0 16px;
-    border-radius: 14px;
-    padding: 14px 20px;
-    display: flex;
-    gap: 0;
-    margin-top: -16px;
-    position: relative;
-    z-index: 10;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.stat-item {
-    flex: 1;
-    text-align: center;
-}
-
-.stat-item + .stat-item {
-    border-left: 1px solid #f0f0f0;
-}
-
-.stat-num {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1a3557;
-    line-height: 1.1;
-}
-
-.stat-label {
-    font-size: 11px;
-    color: #8a9ab0;
-    margin-top: 2px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-}
-
-/* ── SECTION TITLE ── */
+/* ── SECTION HEADER ── */
 .section-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 20px 12px;
+    padding: 20px 20px 12px;
 }
-
 .section-title {
     font-size: 15px;
     font-weight: 700;
     color: #1a3557;
     letter-spacing: -0.2px;
 }
-
 .badge-count {
     background: #e84646;
     color: white;
@@ -136,111 +218,141 @@ body {
 .card {
     background: white;
     border-radius: 16px;
-    padding: 16px;
+    padding: 14px 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     border-left: 4px solid #e0e0e0;
     transition: transform 0.15s, box-shadow 0.15s;
     position: relative;
     overflow: hidden;
 }
-
 .card:active { transform: scale(0.99); }
-
 .card.darurat { border-left-color: #e84646; }
 .card.menunggu { border-left-color: #f5a623; }
 .card.selesai  { border-left-color: #2ecc71; }
 
 .card-header {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 12px;
-}
-
-.card-jenis {
-    display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
     gap: 8px;
 }
 
-.jenis-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
+/* Jam besar & menonjol */
+.card-jam-besar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #1a3557;
+    border-radius: 10px;
+    padding: 5px 12px;
 }
-
-.card.darurat  .jenis-dot { background: #e84646; }
-.card.menunggu .jenis-dot { background: #f5a623; }
-.card.selesai  .jenis-dot { background: #2ecc71; }
-
-.jenis-text {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
+.jam-icon { font-size: 13px; }
+.jam-teks {
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
     letter-spacing: 0.5px;
-}
-
-.card.darurat  .jenis-text { color: #e84646; }
-.card.menunggu .jenis-text { color: #d4870a; }
-.card.selesai  .jenis-text { color: #27ae60; }
-
-.card-jam {
-    font-size: 13px;
-    font-weight: 600;
-    color: #8a9ab0;
-    background: #f5f7fa;
-    padding: 4px 10px;
-    border-radius: 8px;
+    font-variant-numeric: tabular-nums;
 }
 
 .card-nama {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: #1a3557;
     margin-bottom: 10px;
 }
 
-.card-rute {
+/* Grid info alamat & tujuan */
+.card-info-grid {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 7px;
+    margin-bottom: 12px;
 }
-
-.rute-item {
+.card-info-item {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: column;
+    gap: 2px;
+    background: #f5f7fa;
+    border-radius: 10px;
+    padding: 8px 10px;
+}
+.info-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #8a9ab0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.info-val {
     font-size: 13px;
-    color: #555f70;
+    color: #2d3748;
+    font-weight: 500;
     line-height: 1.4;
+    word-break: break-word;
+}
+.info-tujuan {
+    color: #1a7c4a;
+    font-weight: 600;
 }
 
-.rute-icon {
-    width: 22px; height: 22px;
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px;
-    flex-shrink: 0;
-    margin-top: 1px;
+/* ── BADGE JENIS ── */
+.badge-jenis {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
 }
+.badge-pasien    { background: #e8f4fd; color: #1a7cc4; }
+.badge-jenazah   { background: #f0f0f0; color: #555;    }
+.badge-emergency { background: #fde8e8; color: #c41a1a; }
 
-.rute-icon.from { background: #e8f0fe; }
-.rute-icon.to   { background: #fce8e8; }
-
-.rute-connector {
-    width: 22px;
+/* ── CARD FOOTER ── */
+.card-footer {
     display: flex;
-    justify-content: center;
-    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f4f8;
+    flex-wrap: wrap;
 }
 
-.rute-line {
-    width: 2px;
-    height: 14px;
-    background: #e0e6f0;
-    border-radius: 2px;
-    margin: -2px 0;
+/* ── STATUS PILL ── */
+.status-pill {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
 }
+.status-menunggu { background: #fff4e0; color: #b07800; }
+.status-darurat  { background: #fde8e8; color: #c41a1a; }
+.status-selesai  { background: #e8fdf0; color: #1a7c4a; }
+
+/* ── AKSI TOMBOL ── */
+.card-actions { display: flex; gap: 6px; }
+.btn-aksi {
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.btn-selesai {
+    background: #e8fdf0;
+    color: #1a7c4a;
+}
+.btn-selesai:hover { background: #2ecc71; color: white; }
+.btn-hapus {
+    background: #fde8e8;
+    color: #c41a1a;
+}
+.btn-hapus:hover { background: #e84646; color: white; }
 
 /* ── EMPTY STATE ── */
 .empty-state {
@@ -248,31 +360,15 @@ body {
     padding: 48px 24px;
     color: #8a9ab0;
 }
-
-.empty-icon {
-    font-size: 48px;
-    margin-bottom: 12px;
-    opacity: 0.5;
-}
-
-.empty-text {
-    font-size: 15px;
-    font-weight: 600;
-    color: #4a5568;
-    margin-bottom: 6px;
-}
-
-.empty-sub {
-    font-size: 13px;
-    color: #8a9ab0;
-}
+.empty-icon  { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
+.empty-text  { font-size: 15px; font-weight: 600; color: #4a5568; margin-bottom: 6px; }
+.empty-sub   { font-size: 13px; color: #8a9ab0; }
 
 /* ── LOADING ── */
 .loading {
     text-align: center;
     padding: 48px 24px;
 }
-
 .spinner {
     width: 36px; height: 36px;
     border: 3px solid #e0e6f0;
@@ -281,19 +377,11 @@ body {
     animation: spin 0.8s linear infinite;
     margin: 0 auto 12px;
 }
-
 @keyframes spin { to { transform: rotate(360deg); } }
-
-.loading-text {
-    font-size: 13px;
-    color: #8a9ab0;
-}
+.loading-text { font-size: 13px; color: #8a9ab0; }
 
 /* ── TOMBOL PESAN ── */
-.btn-wrapper {
-    padding: 20px 16px 0;
-}
-
+.btn-wrapper { padding: 20px 16px 0; }
 .btn {
     display: flex;
     align-items: center;
@@ -307,41 +395,42 @@ body {
     font-weight: 700;
     font-size: 15px;
     letter-spacing: 0.3px;
-    box-shadow: 0 4px 16px rgba(232, 70, 70, 0.35);
+    box-shadow: 0 4px 16px rgba(232,70,70,0.35);
     transition: transform 0.15s, box-shadow 0.15s;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
-
 .btn:active {
     transform: scale(0.98);
-    box-shadow: 0 2px 8px rgba(232, 70, 70, 0.3);
+    box-shadow: 0 2px 8px rgba(232,70,70,0.3);
 }
+.btn-icon { font-size: 20px; }
 
-.btn-icon {
-    font-size: 20px;
-}
+/* ── MODAL — tidak digunakan (form pakai link eksternal) ── */
 
-/* ── DATE CHIP ── */
-.date-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,255,255,0.12);
-    border-radius: 20px;
-    padding: 5px 12px 5px 8px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.85);
-    margin-top: 10px;
-}
-
-/* ── CARD BADGE DARURAT ── */
-.darurat-badge {
-    position: absolute;
-    top: 0; right: 0;
-    background: #e84646;
+/* ── TOAST ── */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #1a3557;
     color: white;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 0 16px 0 10px;
-    letter-spacing: 0.5px;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: 9999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+    opacity: 0;
+    white-space: nowrap;
 }
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+.toast.success { background: #2ecc71; }
+.toast.error   { background: #e84646; }

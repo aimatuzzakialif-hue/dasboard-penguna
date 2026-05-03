@@ -5,48 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jadwal Ambulans</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
     <div class="header-top">
         <div class="ambulans-icon">🚑</div>
         <div>
             <h1>Jadwal Ambulans</h1>
+            <div class="header-subtitle">AmbulanMu Seyegan — Realtime</div>
         </div>
     </div>
-    <div class="header-subtitle">AmbulanMu Seyegan — Realtime</div>
     <div class="date-chip">
         📅 <span id="tanggal">Memuat tanggal...</span>
     </div>
 </div>
 
-<div class="stats-bar">
-    <div class="stat-item">
-        <div class="stat-num" id="stat-total">-</div>
-        <div class="stat-label">Total</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-num" id="stat-darurat" style="color:#e84646;">-</div>
-        <div class="stat-label">Darurat</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-num" id="stat-menunggu" style="color:#d4870a;">-</div>
-        <div class="stat-label">Menunggu</div>
-    </div>
-    <div class="stat-item">
-        <div class="stat-num" id="stat-selesai" style="color:#27ae60;">-</div>
-        <div class="stat-label">Selesai</div>
-    </div>
+<!-- KALENDER -->
+<div class="kalender-wrapper">
+  <div class="kal-nav">
+    <button class="kal-nav-btn" onclick="navigasiBulan(-1)">&#8249;</button>
+    <span class="kal-label-bulan" id="labelBulan">Memuat...</span>
+    <button class="kal-nav-btn" onclick="navigasiBulan(1)">&#8250;</button>
+  </div>
+  <div id="kalender"></div>
 </div>
 
+<!-- HEADER SECTION -->
 <div class="section-header">
     <span class="section-title">Daftar Perjalanan</span>
     <span class="badge-count" id="badge-total">0</span>
 </div>
 
+<!-- LIST JADWAL -->
 <div class="jadwal-list" id="jadwal">
     <div class="loading">
         <div class="spinner"></div>
@@ -54,89 +48,18 @@
     </div>
 </div>
 
+<!-- TOMBOL PESAN -->
 <div class="btn-wrapper">
-    <a href="https://format-layanan-ambulans.vercel.app/" class="btn">
+    <a class="btn" href="https://format-layanan-ambulan-7idp.vercel.app/" target="_blank" rel="noopener noreferrer">
         <span class="btn-icon">🚑</span>
         PESAN AMBULANS SEKARANG
     </a>
 </div>
 
+<!-- Firebase SDK (compat — tidak perlu type="module") -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script src="script.js"></script>
-<script>
-    // Tampilkan tanggal hari ini
-    const opt = { weekday:'long', day:'numeric', month:'long', year:'numeric' };
-    document.getElementById('tanggal').textContent =
-        new Date().toLocaleDateString('id-ID', opt);
-
-    // Override fungsi tampilkanData dari script.js
-    function tampilkanData(data) {
-        const container = document.getElementById("jadwal");
-        container.innerHTML = "";
-
-        if (!data) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon">📋</div>
-                    <div class="empty-text">Belum ada jadwal hari ini</div>
-                    <div class="empty-sub">Data akan muncul secara otomatis</div>
-                </div>`;
-            updateStats(0, 0, 0, 0);
-            return;
-        }
-
-        const items = Object.values(data);
-        let darurat = 0, menunggu = 0, selesai = 0;
-
-        items.forEach(item => {
-            const status = (item.status || '').toLowerCase();
-            const cls = status === 'darurat' ? 'darurat'
-                      : status === 'selesai'  ? 'selesai'
-                      : 'menunggu';
-
-            if (cls === 'darurat') darurat++;
-            else if (cls === 'selesai') selesai++;
-            else menunggu++;
-
-            container.innerHTML += `
-                <div class="card ${cls}">
-                    ${cls === 'darurat' ? '<div class="darurat-badge">🚨 DARURAT</div>' : ''}
-                    <div class="card-header">
-                        <div class="card-jenis">
-                            <div class="jenis-dot"></div>
-                            <span class="jenis-text">${item.jenis || 'Ambulans'}</span>
-                        </div>
-                        <div class="card-jam">⏰ ${item.jam || '-'}</div>
-                    </div>
-                    <div class="card-nama">${item.nama || 'Pasien'}</div>
-                    <div class="card-rute">
-                        <div class="rute-item">
-                            <div class="rute-icon from">🏠</div>
-                            <span>${item.dari || '-'}</span>
-                        </div>
-                        <div class="rute-item">
-                            <div class="rute-connector"><div class="rute-line"></div></div>
-                        </div>
-                        <div class="rute-item">
-                            <div class="rute-icon to">🏥</div>
-                            <span>${item.tujuan || '-'}</span>
-                        </div>
-                    </div>
-                </div>`;
-        });
-
-        updateStats(items.length, darurat, menunggu, selesai);
-    }
-
-    function updateStats(total, darurat, menunggu, selesai) {
-        document.getElementById('stat-total').textContent    = total;
-        document.getElementById('stat-darurat').textContent  = darurat;
-        document.getElementById('stat-menunggu').textContent = menunggu;
-        document.getElementById('stat-selesai').textContent  = selesai;
-        document.getElementById('badge-total').textContent   = total;
-    }
-</script>
 
 </body>
 </html>
