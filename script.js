@@ -89,6 +89,26 @@ function normalisiKeIso(keyFirebase) {
   } catch(e) {}
   return null; // tidak dikenali
 }
+  function formatJam(raw) {
+  if (!raw) return '--:--';
+
+  // Jika sudah format HH:MM atau HH:MM:SS
+  if (/^\d{2}:\d{2}/.test(raw)) return raw.slice(0, 5);
+
+  // Jika format ISO datetime (2026-05-13T00:00:00.000Z)
+  if (raw.includes('T')) {
+    try {
+      const date = new Date(raw);
+      // Konversi ke waktu lokal Indonesia (WIB = UTC+7)
+      const jamWIB = new Date(date.getTime() + (7 * 60 * 60 * 1000));
+      const h = String(jamWIB.getUTCHours()).padStart(2, '0');
+      const m = String(jamWIB.getUTCMinutes()).padStart(2, '0');
+      return `${h}:${m}`;
+    } catch(e) {}
+  }
+
+  return '--:--';
+}
 
 /* =========================================================
    FIREBASE — LISTEN SELURUH /jadwal SEKALIGUS
@@ -275,7 +295,7 @@ function tampilkanData(data) {
     // Pangkas URL peta jika ada di field "dari"
     const dariTeks = (item.dari || '-').split('|')[0].trim();
     const tujuan   = item.tujuan || '-';
-    const jam      = item.jam    || '--:--';
+    const jam = formatJam(item.jam);
 
     return `
       <div class="card ${cardKelas}" data-key="${key}">
